@@ -1,11 +1,13 @@
 package com.revature.database;
 
 import java.lang.annotation.Annotation;
+
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.revature.annotations.Column;
 import com.revature.inspection.ClassInspector;
