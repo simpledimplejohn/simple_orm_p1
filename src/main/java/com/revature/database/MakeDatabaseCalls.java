@@ -57,7 +57,7 @@ public class MakeDatabaseCalls {
 	public static void MakeTableReflection(Class<?> clazz) {
 
 		String tableName = CI.getClassTableName(clazz);
-		System.out.println(tableName);
+		System.out.println("table name here " + tableName);
 		
 		Field[] fields = CI.listFields(clazz);
 		

@@ -1,6 +1,7 @@
 package com.revature.inspection;
 
 import java.lang.annotation.Annotation;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -18,6 +19,11 @@ public class ClassInspector {
 		
 		String tableValue = "";
 		// gets the annotation name
+		System.out.println("can I print the class? " + clazz);
+		System.out.println("testing " + Arrays.toString(clazz.getAnnotations()));
+
+		
+		
 		for(Annotation annotation : clazz.getAnnotations()) {
 			Class<? extends Annotation> type = annotation.annotationType();
 //			System.out.println("Vlaues of " + type.getName());
