@@ -2,12 +2,15 @@ package com.revature.database;
 
 import java.lang.annotation.Annotation;
 
+
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+
+import com.revature.annotations.Id;
 
 import com.revature.annotations.Column;
 import com.revature.inspection.ClassInspector;
@@ -18,16 +21,45 @@ public class MakeDatabaseCalls {
 	private static Logger logger = Logger.getLogger(MakeDatabaseCalls.class);
 
 	static ClassInspector CI = new ClassInspector();
-/////// TEST OF SQL STATMENT /////////////////////////////
 	
-	public static String testSqlString(Class<?> clazz) {
-		
-		String sqlString = "(";
+	public String ifIdPresent (Class<?> clazz) {
+		String idString = "";
 		
 		Field[] fields = clazz.getDeclaredFields();
 		
 		for(Field field : fields) {
-			sqlString += generateSqlFromAnnotationSet(field.getAnnotations());
+			idString += returnIdFromFields(field.getAnnotations());
+		}
+
+		
+		return idString;
+	}
+	
+	public String returnIdFromFields(Annotation[] annotations) {
+		String Idstring = "";
+		
+		for(Annotation annotation : annotations) {
+			if(annotation.annotationType().equals(Id.class)) {
+				Idstring += "SERIAL primary key";
+			}
+		}
+		
+		return Idstring;
+		
+	}
+	
+/////// TEST OF SQL STATMENT /////////////////////////////
+	
+	public static String testSqlString(Class<?> clazz) {
+		
+		String tableName = CI.getClassTableName(clazz);
+		
+		String sqlString = "(CREATE TABLE " + tableName;
+		
+		Field[] fields = clazz.getDeclaredFields();
+		
+		for(Field field : fields) {
+			sqlString += returnColumnAnnotations(field.getAnnotations());
 		}
 		sqlString += " )";
 		
@@ -38,7 +70,7 @@ public class MakeDatabaseCalls {
 	/**
 	 * Analyzes the set of 
 	 * */
-	public static String generateSqlFromAnnotationSet(Annotation[] annotations) {
+	public static String returnColumnAnnotations(Annotation[] annotations) {
 		
 		StringBuilder builder = new StringBuilder();
 		for(Annotation annotation : annotations) {
@@ -66,7 +98,7 @@ public class MakeDatabaseCalls {
 		try {
 			Connection conn = ConnectionUtil.getConnection();
 			
-			String sql = "CREATE TABLE " + tableName + " (test_value int);";
+			String sql = "CREATE TABLE " + tableName + " ();";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

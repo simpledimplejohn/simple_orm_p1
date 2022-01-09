@@ -12,15 +12,18 @@ import java.util.Arrays;
 
 public class ClassInspector {
 	
-
+	public static void wtf(Class<?> clazz) {
+		System.out.println(Arrays.toString(clazz.getAnnotations()));
+	}
 	
 ////MY METHOD WORKS //////////////////////
 	public String getClassTableName(Class<?> clazz)  {
 		
 		String tableValue = "";
 		// gets the annotation name
-		System.out.println("can I print the class? " + clazz);
-		System.out.println("testing " + Arrays.toString(clazz.getAnnotations()));
+//		System.out.println("can I print the class? " + clazz);
+//		System.out.println("what is this??" + clazz.getSimpleName());
+		System.out.println("testing " + Arrays.toString(clazz.getDeclaredAnnotations()));
 
 		
 		
