@@ -77,7 +77,6 @@ private static Logger logger = Logger.getLogger(ConnectionUtil.class);
 //		            log.error(e);
 		        }
 			url = props.getProperty("url"); // retreaving the value of the url key
-			System.out.println("url: " + url);
 			
 			username = props.getProperty("username");
 			password = props.getProperty("password");

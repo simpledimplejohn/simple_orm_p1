@@ -15,7 +15,7 @@ public class ClassInspector {
 
 	
 ////MY METHOD WORKS //////////////////////
-	public String getClassTableName(Class<?> clazz)  {
+	public static String getClassTableName(Class<?> clazz)  {
 		
 		String tableValue = "";
 		// gets the annotation name
