@@ -62,8 +62,11 @@ _This project is in process and has the following limitations_
   * Booleans 
 
 ## Known Bugs
-
+  * No known bugs, please contact me with any bugs found.
 ## Future Changes
+  * Add CRUD functionality methods
+  * Add function for more database types
+  * Add the ability to use a production or development database
 
 ## License
 
