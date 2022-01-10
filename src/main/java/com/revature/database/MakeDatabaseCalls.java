@@ -22,11 +22,19 @@ public class MakeDatabaseCalls {
 
 	static ClassInspector CI = new ClassInspector();
 
-	public String[] getFieldTypes(Class<?> clazz) {
+	public static String createSqlString(Class<?> clazz) {
 
+		// get table name
+		String tableName = CI.getClassTableName(clazz);
+		// table name to sql string
+		String sqlString = "CREATE TABLE " + tableName + " (";
+		// get all fields
 		Field[] fields = clazz.getDeclaredFields();
 		String[] fieldArray = new String[fields.length];
+		String[] nameArray = new String[fields.length];
+		// populate fieldArray and nameArray
 		for (int i = 0; i < fields.length; i++) {
+			nameArray[i] = returnColumnAnnotations(fields[i].getAnnotations());
 			if (fields[i].getType().equals(Boolean.TYPE)) {
 				fieldArray[i] = "bool";
 			}
@@ -38,10 +46,20 @@ public class MakeDatabaseCalls {
 				fieldArray[i] = "VARCHAR";
 			}
 		}
-		return fieldArray;
+		// add each name and type to string
+		for (int i = 0; i < fields.length; i++) {
+			if (i == fields.length - 1) {
+				sqlString += " " + nameArray[i] + " " + fieldArray[i];				
+			} else {
+				sqlString += " " + nameArray[i] + " " + fieldArray[i] + ",";
+			}
+		}
+
+		sqlString += ")";		
+		return sqlString;
 	}
 
-	public String sqlString(Class<?> clazz) {
+	public static String createTableFromClass(Class<?> clazz) {
 		// get table name
 		String tableName = CI.getClassTableName(clazz);
 		// table name to sql string
@@ -74,8 +92,6 @@ public class MakeDatabaseCalls {
 		}
 
 		sqlString += ")";
-		System.out.println(Arrays.toString(fieldArray));
-		System.out.println(Arrays.toString(nameArray));
 		
 		try {
 			Connection conn = ConnectionUtil.getConnection();

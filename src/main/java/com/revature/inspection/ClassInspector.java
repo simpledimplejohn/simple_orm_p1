@@ -12,9 +12,7 @@ import java.util.Arrays;
 
 public class ClassInspector {
 	
-	public static void wtf(Class<?> clazz) {
-		System.out.println(Arrays.toString(clazz.getAnnotations()));
-	}
+
 	
 ////MY METHOD WORKS //////////////////////
 	public String getClassTableName(Class<?> clazz)  {
@@ -23,7 +21,7 @@ public class ClassInspector {
 		// gets the annotation name
 //		System.out.println("can I print the class? " + clazz);
 //		System.out.println("what is this??" + clazz.getSimpleName());
-		System.out.println("testing " + Arrays.toString(clazz.getDeclaredAnnotations()));
+//		System.out.println("testing " + Arrays.toString(clazz.getDeclaredAnnotations()));
 
 		
 		
