@@ -10,7 +10,7 @@ _This project uses Java Reflection to add functionality to a Java project simila
 ## Technologies Used
 
 * _Java 8_
-* _Mavin_
+* _Apache Mavin_
 * _Java Reflect_
 * _Log4j_
 * _PostgreSQL_
