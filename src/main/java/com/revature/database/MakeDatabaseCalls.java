@@ -41,11 +41,11 @@ public class MakeDatabaseCalls {
 		return fieldArray;
 	}
 
-	public static String sqlString(Class<?> clazz) {
+	public String sqlString(Class<?> clazz) {
 		// get table name
 		String tableName = CI.getClassTableName(clazz);
 		// table name to sql string
-		String sqlString = "(CREATE TABLE " + tableName + " (";
+		String sqlString = "CREATE TABLE " + tableName + " (";
 		// get all fields
 		Field[] fields = clazz.getDeclaredFields();
 		String[] fieldArray = new String[fields.length];
@@ -76,6 +76,19 @@ public class MakeDatabaseCalls {
 		sqlString += ")";
 		System.out.println(Arrays.toString(fieldArray));
 		System.out.println(Arrays.toString(nameArray));
+		
+		try {
+			Connection conn = ConnectionUtil.getConnection();
+
+			PreparedStatement stmt = conn.prepareStatement(sqlString);
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			logger.error("Unable to make table - SQL exception found");
+			e.printStackTrace();
+		}
+		
 		return sqlString;
 	}
 
